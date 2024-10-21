@@ -1,7 +1,62 @@
 <html>
-  <scripts src="/index.js"></scripts>
+    <head>
+  <script>
+    
+function passerRating(pass_cmp, pass_att, pass_yds, pass_td, pass_int) {
+let a = ((pass_cmp / pass_att) - 0.3) * 5;
+a = (a > 2.375) ? 2.375 : a;
+a = (a < 0) ? 0 : a;
+let b = ((pass_yds / pass_att) - 3) * .25;
+b = (b > 2.375) ? 2.375 : b;
+b = (b < 0) ? 0 : b;
+let c = (pass_td / pass_att) * 20;
+c = (c > 2.375) ? 2.375 : c;
+c = (c < 0) ? 0 : c;
+let d = 2.375 - ((pass_int / pass_att) * 25);
+d = (d > 2.375) ? 2.375 : d;
+d = (d < 0) ? 0 : d;
+let rating = (a + b + c + d) / 6 * 100;
+const output = Math.round(rating * 100, 2) / 100;
+console.log(`passer rating: ${output}`);
+return output;
+}
+
+function russelwilsonRating() {
+    const pass_cmp = 16;
+const pass_att = 29;
+const pass_yds = 264;
+const pass_td = 2;
+const pass_int = 0;
+const rating = passerRating(pass_cmp, pass_att, pass_yds, pass_td, pass_int);
+console.log(`russel wilson passer rating: ${rating}`);
+return rating;
+}
+
+function justinFieldsRating() {
+    const pass_cmp = 106;
+const pass_att = 160;
+const pass_yds = 1106;
+const pass_td = 5;
+const pass_int = 1;
+const rating = passerRating(pass_cmp, pass_att, pass_yds, pass_td, pass_int);
+console.log(`justin fields passer rating: ${rating}`);
+return rating;
+}
+
+function calculateratings() {
+
+    const rwrating = russelwilsonRating();
+    const jfrating = justinFieldsRating();
+    document.getElementById('rwr').innerText = `Russel Wilson Passer Rating Today: ${rwrating}`;
+    document.getElementById('jfr').innerText = `Justin Fields Passer Rating This Season: ${jfrating}`;
+
+}
+  </script>
+  </head>
   <body>
-    Passer Ratings: 
-    <button onclick="calculateratings();return void;">Calculate Passer Rating</button>
+    <div>Passer Ratings:</div>
+    <div id="rwr"></div>
+    <div id="jfr"></div>
+    <button onclick="calculateratings();">Calculate Passer Rating</button>
 </body>
 </html>
